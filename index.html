@@ -12,7 +12,7 @@
     <div id="app">
         <nav 
             class="navbar navbar-expand-lg"
-            :class="{'navbar-light bg-light': !navBarDark, 'navbar-dark bg-dark': navBarDark}">
+            :class="navBarClasses">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">My Vue</a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -45,6 +45,16 @@
 
     <script>
         Vue.createApp({
+            computed:{
+                navBarClasses(){
+                    return{
+                        'navbar-light': !this.navBarDark,
+                        'bg-light': !this.navBarDark,
+                        'navbar-dark': this.navBarDark,
+                        'bg-dark': this.navBarDark,
+                    }
+                }
+            },
             data(){
                 return{
                     activePage: 0,
