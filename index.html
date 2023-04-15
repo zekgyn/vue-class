@@ -11,8 +11,7 @@
 <body>
     <div id="app">
         <nav 
-            class="navbar navbar-expand-lg"
-            :class="navBarClasses">
+            :class="[`navbar-${theme}`,`bg-${theme}`, 'navbar', 'navbar-expand-lg']">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">My Vue</a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -31,7 +30,7 @@
                     <form class="d-flex"></form>
                     <button 
                         class="btn btn-primary" 
-                        @click.prevent="navBarDark = !navBarDark"
+                        @click.prevent="changeTheme()"
                         >Toggle Navbar</button>
                 </div>
             </div>
@@ -39,26 +38,15 @@
         <div class="container">
             <h1>{{ pages[activePage].Pagetitle }}</h1>
             <p>{{ pages[activePage].content }}</p>
-            <p>{{ navBarDark }}</p>
         </div>
     </div>
 
     <script>
         Vue.createApp({
-            computed:{
-                navBarClasses(){
-                    return{
-                        'navbar-light': !this.navBarDark,
-                        'bg-light': !this.navBarDark,
-                        'navbar-dark': this.navBarDark,
-                        'bg-dark': this.navBarDark,
-                    }
-                }
-            },
             data(){
                 return{
                     activePage: 0,
-                    navBarDark: true,
+                    theme:'light',
                     pages:[
                         {
                             link:{text: 'Home', url:'index.html'},
@@ -77,6 +65,16 @@
                         }   
                     ],
                 };
+            },
+            methods:{
+                changeTheme(){
+                    let theme = 'light';
+                    console.log(this.theme)
+                    if (this.theme == 'light'){
+                        theme = 'dark';
+                    }
+                    this.theme = theme;
+                }
             }
         }).mount("#app");
     </script>
